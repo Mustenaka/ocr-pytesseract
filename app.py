@@ -72,22 +72,12 @@ def ocr():
                 "error": "Only support .jpeg .jpg .png style. Pealse sent right pic"
             })
 
-        '''
-        # 旧版本运行方式，效果比较慢，产生文件写入，已经无法正常运行
-        # ocr running
-        toOCR = "python RunOCR.py -i " + local_img_path + " -r "+cnt
-        print("todo :", toOCR)
-        os.system(toOCR)
-        '''
-
         # 获取ocr识别文字
         content = appRunOCR.appRunOCR(local_img_path, cnt).start()
 
+        #如果你需要部署服务器，可以把公网IP修改为本地址
+        base_server_url = "http://127.0.0.1"  # 本地测试用地址
 
-        # http://47.96.128.130:5000/api/+......
-
-        #base_server_url = "http://127.0.0.1"  # 本地测试用地址
-        base_server_url = "http://47.96.128.130"
         _port = 5000
         server_url = base_server_url + ":" + str(_port)
 
@@ -101,14 +91,14 @@ def ocr():
         print("The contecnt is: ", content)
         '''
 
-        # http://47.96.128.130:5000/download/
+        # http://127.0.0.1:5000/download/
         download_url = server_url + "/download/" + cnt+'/'
         # 三个图片 -- 下载API
         download_output_Auto = download_url+"Auto.png"
         download_output_BlackWhite = download_url+"BlackWhite.png"
         download_output_Grayscale = download_url+"Grayscale.png"
 
-        #http://47.96.128.130:5000/api/
+        #http://127.0.0.1:5000/api/
         web_url = server_url + "/api/" + cnt+'/'
         # 三个图片 -- 网页展示API
         web_output_Auto = web_url+"Auto.png"
@@ -158,64 +148,14 @@ def display_img(cnt, filename):
     else:
         pass
 
-
-'''
-# 获取的是一个json，json里面包含的图片地址，可是后面一想，图片地址并没有包含图片，传输图片要借助base64，故暂时搁置这个做法
-@app.route('/v{}/ocr'.format(_VERSION), methods=['POST'])
-def ocr():
-    cnt = str(COUNT)
-    print(cnt)
-    print("Get a post for OCR server.")
-    try:
-        print("aaaaaaa")
-
-        # get image
-        local_img_path = _get_image(url)
-
-        print("bbbbbbbb")
-
-        # ocr running
-        toOCR = "python RunOCR.py -i " + local_img_path + " -r "+cnt
-        print("todo :", toOCR)
-        os.system(toOCR)
-
-        if allowed_file(url):
-            print("allowed file style.")
-            # 三个图片
-            output_Auto = "RuningFolder\\"+cnt+"\\auto.png"
-            output_BlackWhite = "RuningFolder\\"+cnt+"\\BlackWhite.png"
-            output_Grayscale = "RuningFolder\\"+cnt+"\\Grayscale.png"
-            # 输出文字
-            output_text = "RuningFolder\\"+cnt+"\\out.txt"
-
-            count = count+1  # 计数标记+1
-            if count == 100:  # 在本地保留100个处理记录,本程序必须保持常开
-                count = 1
-
-            return jsonify({
-                "out_Image": [output_Auto, output_BlackWhite, output_Grayscale],
-                "out_text": output_text
-            })
-
-        else:
-            return jsonify({"error": "only .jpg .jpeg .png files,please try again."})
-    except:
-        return jsonify(
-            {"error": "Did you mean to send:{'image_url':'something_image_url'}"}
-        )
-'''
-
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=5000)
     #app.run(debug=True, port=5000)
 
 
-
+'''
 思路：
 先完成了基本的核心算法：图像的识别tesseract，直接看效果，预处理，排除干扰和噪声（预处理-opencv）。
 运行算法，规范：限制不正常的内容传入。（appRunOCR.py）
 服务器，传输内容
-
-完善。
-
-写运维，Linux，bash XX.sh
+'''

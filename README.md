@@ -1,4 +1,20 @@
-文件格式说明。
+# ocr-pytesseract
+
+ocr-pytesseract是一个基于opencv以及pytesseract的简单ocr文字识别模块，并且引用flask框架做服务，服务器部署可以在windows和linux端运行，皆已测试完毕，在运行程序前，你需要先安装opencv和pytesseract，如果你需要完全相同的环境（Python3.7），你可以使用pip install -r requirements.txt进行安装
+
+##### 运行方式：
+
+### Windows：
+
+python app.py
+
+### Linux：
+
+bash SERVER.sh
+
+
+
+### 文件格式说明。
 
 文件夹：
 
@@ -29,3 +45,36 @@
 ​		getLocalIP.py		获取本机IP地址
 
 ​		testcli.py				测试网络上传文件模块	
+
+
+
+### 接口说明
+
+使用POST发送一张图片给http://127.0.0.1:5000/v1/ocr，可以参考testcli.py的发送方式
+
+使用GET获取图片http://127.0.0.1:5000/download/可以直接下载json，http://127.0.0.1:5000/api/可以网页的方式展示json
+
+返回的格式代码为：
+
+​        return jsonify({
+
+​            \# "DOWNLOAD_Image": [download_output_Auto, download_output_BlackWhite, download_output_Grayscale],
+
+​            "API_Image": [web_output_Auto, web_output_BlackWhite, web_output_Grayscale],
+
+​            "OUT_text_string": content,
+
+​        })
+
+
+
+### 其他说明：
+
+如果需要公网访问，请修改app.py的第79行
+
+base_server_url = "http://127.0.0.1"  # 本地测试用地址
+
+修改为你的公网访问的IP，端口则可以修改app.py的第152行
+
+port=5000
+
