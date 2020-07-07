@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "C:\\Users\\Mumte\\Anaconda3\\envs\\ocr\\python.exe",
+    "python.jediEnabled": true,
+    "python.linting.enabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.autoComplete.addBrackets": true,
+    "python.autoComplete.extraPaths": [
+        "C:/Users/Mumte/Anaconda3/envs/ocr/lib/site-packages",
+    ]
+}
+
