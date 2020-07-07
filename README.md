@@ -50,21 +50,33 @@ bash SERVER.sh
 
 ### 接口说明
 
-使用POST发送一张图片给http://127.0.0.1:5000/v1/ocr，可以参考testcli.py的发送方式
+使用POST发送一张图片给http://127.0.0.1:5000/v1/ocr ，可以参考testcli.py的发送方式
 
-使用GET获取图片http://127.0.0.1:5000/download/可以直接下载json，http://127.0.0.1:5000/api/可以网页的方式展示json
+使用GET获取图片
+
+http://127.0.0.1:5000/download/ 
+
+可以直接下载json；
+
+http://127.0.0.1:5000/api/
+
+可以网页的方式展示json
+
+
 
 返回的格式代码为：
 
-​        return jsonify({
+```python
+        return jsonify({
 
-​            \# "DOWNLOAD_Image": [download_output_Auto, download_output_BlackWhite, download_output_Grayscale],
+​            "DOWNLOAD_Image": [download_output_Auto, download_output_BlackWhite, download_output_Grayscale],
 
 ​            "API_Image": [web_output_Auto, web_output_BlackWhite, web_output_Grayscale],
 
 ​            "OUT_text_string": content,
 
 ​        })
+```
 
 
 
