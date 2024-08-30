@@ -1,6 +1,6 @@
 Flask==2.3.2
 numpy==1.21.0
-opencv-python==4.2.0.34
+opencv-python==4.8.1.78
 Pillow==10.2.0
 pycodestyle==2.5.0
 pylint==2.5.0
